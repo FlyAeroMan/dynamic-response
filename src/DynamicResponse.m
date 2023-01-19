@@ -57,7 +57,7 @@ dutchRollResults = DutchRollCalc(latRoots);
 spiralResults = SpiralCalc(latRoots);
 
 % Calculate Roll Mode Time Constant
-rollTimeConstant = RollTimeConstantCalc(latRoots, allData);
+rollTimeConstant = RollTimeConstantCalc(latRoots, allData); %Tr=1/Lp
 
 % Calculate Roll Control Effectivness
 rollControlEffectivness = RollControlEffectivnessCalc(latRoots, allData);
