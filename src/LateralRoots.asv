@@ -38,7 +38,7 @@ IxzB = alldata{2}(3);
 Ibody = [IxxB; IzzB; IxzB];
 
 % calculate inertia in stability axis
-SSAOA = alldata{1}(9); % Steady State Angle of Attack (deg)
+SSAOA = alldata{1}(9);%Steady State Angle of Attack (deg)
 Itransform = [cosd(SSAOA)^2, sind(SSAOA)^2, -sind(2*SSAOA)
               sind(SSAOA)^2, cosd(SSAOA)^2, sind(2*SSAOA)
               0.5*sind(2*SSAOA), -0.5*sind(2*SSAOA), cosd(2*SSAOA)];
@@ -82,6 +82,7 @@ Ir*Lb*(Nb+NTb), Ir*Lp*Np, Ir*Lr*Nr, 0
 latRoots = eig(A);
 
 % Calculates roll control effectivness
+%t = linspace(0,2,300);
 t = 0;
 bank = 0;
 while bank < 60*(pi/180)
@@ -89,7 +90,4 @@ while bank < 60*(pi/180)
     t = t + 0.001;
 end
 RollControlEffectivness = t;
-
-% Calculate roll mode time constant
-Tr = -1/Lp;
 end
