@@ -20,6 +20,8 @@
 %     along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 % January 17, 2023 10:56:12 PM CST -- Init Version (Kale Macormic)
+% January 20, 2023 09:30:55 PM CST -- Implemented Roll Calcs into
+%                                     LateralRoots (Kale Macormic)
 % [next version here]
 
 % NOTICE: This source code is Copyright (C) 2023  Kale Macormic and is
@@ -37,34 +39,29 @@ allData = ReadStabFile;
 % Longitudinal Modes-------------------------------------------------------
 
 % Calculate Characteristic Equation Roots
-longRoots = LongitudinalRoots(allData);
+%longRoots = LongitudinalRoots(allData);
 
 % Calculate Phugoid Damping Ratio and Frequency
-phugoidResults = PhugoidCalc(longRoots);
+%phugoidResults = PhugoidCalc(longRoots);
 
 % Calculate Short Period Damping Ratio and Frequency
-shortPeriodResults = ShortPeriodCalc(longRoots);
+%shortPeriodResults = ShortPeriodCalc(longRoots);
 
 % Lateral Modes------------------------------------------------------------
 
 % Calculate Characteristic Equation Roots
-latRoots = LateralRoots(allData);
+[latRoots,rollControlEffectivness,rollTimeConstant] = ...
+    LateralRoots(allData);
 
 % Calculate Dutch Roll Damping Ratio and Frequency
-dutchRollResults = DutchRollCalc(latRoots);
+%dutchRollResults = DutchRollCalc(latRoots);
 
 % Calculate Spiral Time to double amplitude
-spiralResults = SpiralCalc(latRoots);
-
-% Calculate Roll Mode Time Constant
-rollTimeConstant = RollTimeConstantCalc(latRoots, allData);
-
-% Calculate Roll Control Effectivness
-rollControlEffectivness = RollControlEffectivnessCalc(latRoots, allData);
+%spiralResults = SpiralCalc(latRoots);
 
 % Data Output--------------------------------------------------------------
 
 % Output Data to a file and/or Excel make pretty plots, etc.
-OutPutResults(allData, longRoots, phugoidResults, shortPeriodResults, ...
-    latRoots, dutchRollResults, spiralResults, rollTimeConstant, ...
-    rollControlEffectivness);
+%OutPutResults(allData, longRoots, phugoidResults, shortPeriodResults, ...
+%    latRoots, dutchRollResults, spiralResults, rollTimeConstant, ...
+%    rollControlEffectivness);
