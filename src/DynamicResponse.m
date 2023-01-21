@@ -54,7 +54,7 @@ allData = ReadStabFile;
     LateralRoots(allData);
 
 % Calculate Dutch Roll Damping Ratio and Frequency
-%dutchRollResults = DutchRollCalc(latRoots);
+dutchRollResults = DutchRollCalc(latRoots);
 
 % Calculate Spiral Time to double amplitude
 %spiralResults = SpiralCalc(latRoots);
