@@ -1,4 +1,4 @@
-function alldata = ReadStabFile
+function alldata = ReadStabFile(controls)
 %ReadStabFile - a function that reads all relavent data from a .stab file
 %which is an ascii file format output by VSPAero Stability runs.
 
@@ -71,18 +71,24 @@ temp = sscanf(rawdata{39,1},'%*s %f %f %f %f %f %f %f %f %f');
 alldata{3}(1) = temp(3); % Cyb ()
 alldata{3}(2) = temp(4); % Cyp ()
 alldata{3}(3) = temp(6); % Cyr ()
-alldata{3}(4) = temp(9); % Cyda ()
+if controls
+    alldata{3}(4) = temp(9); % Cyda ()
+end
 % All Rolling Moment non-dimensional derivatives are in alldata{4}
 temp = sscanf(rawdata{47,1},'%*s %f %f %f %f %f %f %f %f %f');
 alldata{4}(1) = temp(3); % Clb ()
 alldata{4}(2) = temp(4); % Clp ()
 alldata{4}(3) = temp(6); % Clr ()
-alldata{4}(4) = temp(9); % Clda ()
+if controls
+    alldata{4}(4) = temp(9); % Clda ()
+end
 % All Yawing Moment non-dimensional derivatives are in alldata{5}
 temp = sscanf(rawdata{47,1},'%*s %f %f %f %f %f %f %f %f %f');
 alldata{5}(1) = temp(3); % Cnb ()
 alldata{5}(2) = 0; % CnTb () only used if 1 engine inoperable
 alldata{5}(3) = temp(4); % Cnp ()
 alldata{5}(4) = temp(6); % Cnr ()
-alldata{5}(5) = temp(9); % Cnda ()
+if controls
+    alldata{5}(5) = temp(9); % Cnda ()
+end
 end

@@ -33,8 +33,11 @@ clear all
 close all
 clc
 
+% Ask user if control values are required
+controls = false;
+
 % Read in the .stab file the user selects & ask for inertia matrix
-allData = ReadStabFile;
+allData = ReadStabFile(controls);
 
 % Longitudinal Modes-------------------------------------------------------
 
@@ -51,7 +54,7 @@ allData = ReadStabFile;
 
 % Calculate Characteristic Equation Roots
 [latRoots,rollControlEffectivness,rollTimeConstant] = ...
-    LateralRoots(allData);
+    LateralRoots(allData,controls);
 
 % Calculate Dutch Roll Damping Ratio and Frequency
 dutchRollResults = DutchRollCalc(latRoots);
