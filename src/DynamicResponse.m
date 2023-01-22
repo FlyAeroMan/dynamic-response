@@ -22,6 +22,8 @@
 % January 17, 2023 10:56:12 PM CST -- Init Version (Kale Macormic)
 % January 20, 2023 09:30:55 PM CST -- Implemented Roll Calcs into
 %                                     LateralRoots (Kale Macormic)
+% January 21, 2023 11:28:12 PM CST -- Implemented stability mode where
+%                                     controls are ignored
 % [next version here]
 
 % NOTICE: This source code is Copyright (C) 2023  Kale Macormic and is
