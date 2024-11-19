@@ -11,6 +11,7 @@ m = alldata{1}(3); % mass (slugs)
 b = alldata{1}(2); % wing span (in)
 u1 = alldata{1}(5); % Vinf, steady state velocity (in/s)
 g = alldata{1}(6); % gravitational constant (in/s^2)
+da = alldata{1}(10); % Aileron deflection (deg)
 
 % Y Force non-dimensional derivatives
 Cyb = alldata{3}(1);
@@ -97,13 +98,14 @@ if controls
     t = 0;
     bank = 0;
     bankattime = 0;
+    time = 0;
     while bank < 60*(pi/180)
-        bank = -((Lda*12*(pi/180))/(Lp))*t+((Lda*12*(pi/180))/(Lp^2))*(exp(Lp*t)-1);
-        if t > 1.144 && t < 1.146
+        bank = -((Lda*da*(pi/180))/(Lp))*t+((Lda*da*(pi/180))/(Lp^2))*(exp(Lp*t)-1);
+        if t > 1.299 && t < 1.301 % record bank at time available to bank Class I, Category A, Level 1 requirements
             bankattime = bank;
             time = t;
         end
-        t = t + 0.001;
+        t = t + 0.00001;
     end
     RollControlEffectivness = [t,bank*(180/pi),bankattime*(180/pi),time];
     

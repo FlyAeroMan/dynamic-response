@@ -23,7 +23,10 @@
 % January 20, 2023 09:30:55 PM CST -- Implemented Roll Calcs into
 %                                     LateralRoots (Kale Macormic)
 % January 21, 2023 11:28:12 PM CST -- Implemented stability mode where
-%                                     controls are ignored
+%                                     controls are ignored (Kale Macormic)
+% November 18, 2024 10:19:55PM CST -- Fixed Bug in ReadStabFile.m, where Cn
+%                                     coefficients used the same data as Cl
+%                                     coefficients (Kale Macormic)
 % [next version here]
 
 % NOTICE: This source code is Copyright (C) 2023  Kale Macormic and is
@@ -36,10 +39,12 @@ close all
 clc
 
 % Ask user if control values are required
-controls = false;
+controls = true;
+deflectionDeg = 18; %degrees
+sheetName = 10; %name of the sheet within the workbook, or sheet number
 
 % Read in the .stab file the user selects & ask for inertia matrix
-allData = ReadStabFile(controls);
+allData = ReadStabFile(controls, deflectionDeg, sheetName);
 
 % Longitudinal Modes-------------------------------------------------------
 

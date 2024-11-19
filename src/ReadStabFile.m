@@ -1,4 +1,4 @@
-function alldata = ReadStabFile(controls)
+function alldata = ReadStabFile(controls, deflectionDeg, sheetName)
 %ReadStabFile - a function that reads all relavent data from a .stab file
 %which is an ascii file format output by VSPAero Stability runs.
 
@@ -17,7 +17,7 @@ fclose(FID);
 
 % Get Inertia Data
 [file,path] = uigetfile('*.xlsx');
-data = xlsread(sprintf('%s%s',path,file),3);
+data = xlsread(sprintf('%s%s',path,file),sheetName);
 
 % Store relavent values into alldata
 % All aircraft dimensional and flow Properties are in alldata{1}
@@ -30,6 +30,7 @@ data = xlsread(sprintf('%s%s',path,file),3);
 % alldata{1}(7) => Wing Chord (in)
 % alldata{1}(8) => dynamic pressure (lbf/in^2)
 % alldata{1}(9) => Angle of Attack steady state (deg)
+% alldata{1}(10)=> Deflection Angle of Ailerons (deg)
 % % All aircraft inertial Properties are in alldata{2}
 % alldata{2}(1) => IxxB ()
 % alldata{2}(2) => IzzB ()
@@ -54,20 +55,21 @@ data = xlsread(sprintf('%s%s',path,file),3);
 % All aircraft dimensional and flow Properties are in alldata{1}
 alldata{1}(1) = sscanf(rawdata{4,1},'%*s %f'); % Wing area (in^2)
 alldata{1}(2) = sscanf(rawdata{6,1},'%*s %f'); % wing span (in)
-alldata{1}(3) = data(20, 13); % mass (slugs)
+alldata{1}(3) = data(20, 16); % mass (slugs)
 alldata{1}(4) = 0.00228106/12^3;%sscanf(rawdata{13,1},'%*s %f'); % Air Density (slugs/in^3)
 alldata{1}(5) = sscanf(rawdata{14,1},'%*s %f'); % Vinf, steady state velocity (in/s)
-alldata{1}(6) = data(21, 13); % gravitational constant (in/s^2)
+alldata{1}(6) = data(21, 16); % gravitational constant (in/s^2)
 alldata{1}(7) = sscanf(rawdata{5,1},'%*s %f'); % Wing Chord (in)
-alldata{1}(8) = 0.5*alldata{1}(4)*alldata{1}(5); % dynamic pressure (lbf/in^2)
+alldata{1}(8) = 0.5*alldata{1}(4)*alldata{1}(5)*alldata{1}(5); % dynamic pressure (lbf/in^2)
 alldata{1}(9) = sscanf(rawdata{11,1},'%*s %f'); % Angle of Attack steady state (deg) 
+alldata{1}(10)= deflectionDeg;% Deflection Angle of Ailerons (deg)
 % All aircraft inertial Properties are in alldata{2}
-alldata{2}(1) = data(15, 13); % IxxB ()
-alldata{2}(2) = data(17, 13); % IzzB ()
-alldata{2}(3) = data(18, 13); % IxzB ()
-alldata{2}(4) = data(16, 13); % IyyB ()
+alldata{2}(1) = data(15, 16); % IxxB ()
+alldata{2}(2) = data(17, 16); % IzzB ()
+alldata{2}(3) = data(18, 16); % IxzB ()
+alldata{2}(4) = data(16, 16); % IyyB ()
 % All Y-Force non-dimensional derivatives are in alldata{3}
-temp = sscanf(rawdata{39,1},'%*s %f %f %f %f %f %f %f %f %f');
+temp = sscanf(rawdata{46,1},'%*s %f %f %f %f %f %f %f %f %f');
 alldata{3}(1) = temp(3); % Cyb ()
 alldata{3}(2) = temp(4); % Cyp ()
 alldata{3}(3) = temp(6); % Cyr ()
@@ -83,7 +85,7 @@ if controls
     alldata{4}(4) = temp(9); % Clda ()
 end
 % All Yawing Moment non-dimensional derivatives are in alldata{5}
-temp = sscanf(rawdata{47,1},'%*s %f %f %f %f %f %f %f %f %f');
+temp = sscanf(rawdata{49,1},'%*s %f %f %f %f %f %f %f %f %f');
 alldata{5}(1) = temp(3); % Cnb ()
 alldata{5}(2) = 0; % CnTb () only used if 1 engine inoperable
 alldata{5}(3) = temp(4); % Cnp ()

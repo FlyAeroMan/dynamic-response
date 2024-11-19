@@ -22,5 +22,5 @@ ImaginaryComponent = abs(imag(DutchRoot));
 NaturalFrequency = sqrt(RealComponent^2 + ImaginaryComponent^2);
 DampingRatio = -RealComponent/NaturalFrequency;
 
-dutchRollResults = [NaturalFrequency, DampingRatio];
+dutchRollResults = [NaturalFrequency, DampingRatio, NaturalFrequency*DampingRatio];
 end
